@@ -3,7 +3,9 @@ import os
 import csv
 
 # set path for file
-csvpath = os.path.join('/Users/kaylopilato/python-challenge/python-challenge/PyBank/Resources/budget_data.csv')
+csvpath = os.path.join('./PyBank/Resources/budget_data.csv')
+# csvpath = os.path.join('/Users/kaylopilato/python-challenge/python-challenge/PyBank/Resources/budget_data.csv')
+
 print("Current Working Directory:", os.getcwd(), "\n")
 
 # absolute path verification
@@ -29,20 +31,24 @@ with open(csvpath) as csvfile:
         #calculating totals, changes, increases, and decreases
         total_months += 1
         total_rev += int(row[1])
-        rev_change = int(row[1]) - prev_rev
+        if total_months > 1:
+
+            rev_change = int(row[1]) - prev_rev
+            rev_change_list.append(rev_change)
+            month_of_change += [row[0]]
+
+            if (rev_change > great_in[1]):
+                great_in[0] = row[0]
+                great_in[1] = rev_change
+
+            if (rev_change < great_de[1]):
+                great_de[0] = row[0]
+                great_de[1] = rev_change
+
         prev_rev = int(row[1])
-        month_of_change += [row[0]]
-
-        if (rev_change > great_in[1]):
-            great_in[0] = row[0]
-            great_in[1] = rev_change
-
-        if (rev_change < great_de[1]):
-            great_de[0] = row[0]
-            great_de[1] = rev_change
 
 # find average revenue change
-rev_change_list = rev_change_list + [rev_change]
+# rev_change_list = rev_change_list + [rev_change]
 rev_avg = round(sum(rev_change_list) / len(rev_change_list), 2)
 
 # generate findings
@@ -58,3 +64,6 @@ output = (
 
 # print results
 print(output)
+
+with open("./PyBank/Analysis/pybank_analysis.txt", "w") as text_file:
+    text_file.write(output)

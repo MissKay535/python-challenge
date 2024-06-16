@@ -3,7 +3,7 @@ import os
 import csv
 
 # set path to file
-csvpath = os.path.join('/Users/kaylopilato/python-challenge/python-challenge/PyPoll/Resources/election_data.csv')
+csvpath = os.path.join('./PyPoll/Resources/election_data.csv')
 print("Current Working Directory:", os.getcwd(), "\n")
 
 # absolute path verification
@@ -57,12 +57,17 @@ with open(csvpath) as csvfile:
     summary_of_results = list(summary_of_results)
 
      # Print to make sure everything is right
-    print("Election Results")
-    print("---------------------------------------------")
-    print(f'Total Votes :  {total_votes}')
-    print("---------------------------------------------")
+    output = "Election Results\n"
+    output +="---------------------------------------------\n"
+    output +=f'Total Votes :  {total_votes}\n'
+    output +="---------------------------------------------\n"
     for item in summary_of_results:
-            print(f'{item[0]}: {item[1]}% ({item[2]})')
-    print("---------------------------------------------")
-    print(f'Winner : {winner}')
-    print("---------------------------------------------")
+            output +=f"{item[0]}: {item[1]}% ({item[2]})\n"
+    output +="---------------------------------------------\n"
+    output +=f'Winner : {winner}\n'
+    output +="---------------------------------------------\n"
+
+    print(output)
+
+with open('./PyPoll/Analysis/pypoll_analysis.txt', 'w') as text_file: 
+     text_file.write(output)
