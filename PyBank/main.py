@@ -13,8 +13,7 @@ print("Absolute Path:", absolute_csvpath)
 # set variables
 total_months = 0
 prev_rev = 0
-rev_change = 0
-rev = []
+rev_change = 1
 month_of_change = []
 rev_change_list = []
 great_in = ["", 0]
@@ -44,13 +43,7 @@ with open(csvpath) as csvfile:
 
 # find average revenue change
 rev_change_list = rev_change_list + [rev_change]
-sum = 0
-for num in rev_change_list:
-    sum += num
-average = sum / len(rev_change_list)
-
-
-
+rev_avg = round(sum(rev_change_list) / len(rev_change_list), 2)
 
 # generate findings
 output = (
@@ -58,7 +51,7 @@ output = (
     f"-----------------------\n"
     f"Total Months: {total_months}\n"
     f"Total: ${total_rev}\n"
-    f"Average Change: ${average}\n"
+    f"Average Change: ${rev_avg}\n"
     f"Greatest Increase in Profits: {great_in[0]} (${great_in[1]})\n"
     f"Greatest Decrease in Profits: {great_de[0]} (${great_de[1]})\n"
 )
